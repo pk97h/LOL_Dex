@@ -3,27 +3,32 @@
 import { ChampionImage } from "@/components/ChampionImage";
 import { fetchChampionList } from "@/utils/serverApi";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchChampionRotation = async () => {
+  const response = await fetch("/api/rotation");
+  const data = await response.json();
+  return data.freeChampionIds;
+};
 
 const Rotation = () => {
-  const [rotation, setRotation] = useState<number[] | null>(null);
-  const [champions, setChampions] = useState<Champion[] | null>(null);
+  const { data: rotation, isLoading: isRotationLoading, error: rotationError } = useQuery({
+    queryKey: ["rotation"],
+    queryFn: fetchChampionRotation,
+  });
 
-  useEffect(() => {
-    const fetchChampionRotation = async () => {
-      const response = await fetch("/api/rotation");
-      const data = await response.json();
-      setRotation(data.freeChampionIds);
-    };
+  const { data: champions, isLoading: isChampionsLoading, error: championsError } = useQuery({
+    queryKey: ["champions"],
+    queryFn: fetchChampionList,
+  });
 
-    const fetchChampions = async () => {
-      const championsList = await fetchChampionList();
-      setChampions(championsList);
-    };
+  if (isRotationLoading || isChampionsLoading) {
+    return <div className="text-center m-4">로딩 중...</div>;
+  }
 
-    fetchChampionRotation();
-    fetchChampions();
-  }, []);
+  if (rotationError || championsError) {
+    return <div className="text-center text-red-500 m-4">오류: {(rotationError || championsError)?.message}</div>;
+  }
 
   const filteredChampions = champions?.filter((champion) =>
     rotation?.includes(Number(champion.key))
