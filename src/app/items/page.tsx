@@ -1,5 +1,5 @@
 import { ItemImage } from "@/components/ItemImage";
-import { fetchItemList } from "@/utils/fetchItemList";
+import { fetchItemList } from "@/utils/serverApi";
 import { Metadata } from "next";
 import Link from "next/link";
 

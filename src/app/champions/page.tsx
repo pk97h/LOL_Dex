@@ -1,5 +1,5 @@
 import { ChampionImage } from "@/components/ChampionImage";
-import { fetchChampionList } from "@/utils/fetchChampionList";
+import { fetchChampionList } from "@/utils/serverApi";
 import { Metadata } from "next";
 import Link from "next/link";
 

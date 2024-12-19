@@ -1,5 +1,6 @@
 import { ChampionImage } from "@/components/ChampionImage";
-import { fetchChampionList } from "@/utils/fetchChampionList";
+import { fetchChampionList } from "@/utils/serverApi";
+
 
 export async function generateMetadata({ params }: { params: Props }) {
   const champions = await fetchChampionList({

@@ -1,7 +1,7 @@
 "use client";
 
 import { ChampionImage } from "@/components/ChampionImage";
-import { fetchChampionList } from "@/utils/fetchChampionList";
+import { fetchChampionList } from "@/utils/serverApi";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

@@ -1,5 +1,5 @@
 import { ItemImage } from "@/components/ItemImage";
-import { fetchItemList } from "@/utils/fetchItemList";
+import { fetchItemList } from "@/utils/serverApi";
 
 export async function generateMetadata({ params }: { params: Props }) {
   const items = await fetchItemList()
